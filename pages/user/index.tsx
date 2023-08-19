@@ -56,11 +56,12 @@ export default function Home() {
   ));
 
   return (
-    <div className="container">
+    <div className="user_bookstore_container">
       <h1>Bookstore</h1>
-      <button onClick={handleToggleBooks}>
+      <button onClick={handleToggleBooks} className='button-link'>
         {showBooks ? 'Hide Books' : 'Show Books'}
       </button>
+      <div className='List_of_books_table'>
       {showBooks && (
         <div className="bookList">
           {currentBooks.map((book) => (
@@ -72,6 +73,7 @@ export default function Home() {
           ))}
         </div>
       )}
+      </div>
       {showBooks && (
         <div className="pagination">
           {paginationButtons}

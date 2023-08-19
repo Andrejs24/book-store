@@ -1,0 +1,74 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.buttons {
+  margin-top: 20px;
+  
+}
+
+.button-link {
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.button-link:hover {
+  background-color: #0056b3;
+}
+
+.user_bookstore_container {
+  text-align: center;
+  padding: 20px;
+}
+
+.List_of_books_table {
+  margin-top: 20px;
+}
+
+.bookList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  max-width: 250px;
+  text-align: left;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #ccc;
+}
