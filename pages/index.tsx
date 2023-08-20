@@ -12,9 +12,6 @@ const Home: React.FC = () => {
         <Link href="/login" className="button-link">
           Login 
         </Link>
-        <Link href="/signup" className="button-link">
-          Sign up
-        </Link>
       </div>
     </div>
   );

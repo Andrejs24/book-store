@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 
 interface Author {
   id: number;
@@ -28,7 +29,7 @@ export default function Home() {
     if (showBooks) {
       setShowBooks(false);
     } else {
-      axios.get<Book[]>('http://localhost:8080/books')
+      axios.get<Book[]>('http://localhost:8080/user/books')
         .then(response => {
           setBooks(response.data.reverse()); // Reverse the order of books
           setShowBooks(true);
@@ -62,23 +63,28 @@ export default function Home() {
         {showBooks ? 'Hide Books' : 'Show Books'}
       </button>
       <div className='List_of_books_table'>
-      {showBooks && (
-        <div className="bookList">
-          {currentBooks.map((book) => (
-            <div className="book" key={book.id}>
-              <strong>Title:</strong> {book.title}<br />
-              <strong>Author:</strong> {book.author.firstName} {book.author.lastName}<br />
-              <strong>Description:</strong> {book.description}<br />
-            </div>
-          ))}
-        </div>
-      )}
+        {showBooks && (
+          <div className="bookList">
+            {currentBooks.map((book) => (
+              <div className="book" key={book.id}>
+                <strong>Title:</strong> {book.title}<br />
+                <strong>Author:</strong> {book.author.firstName} {book.author.lastName}<br />
+                <strong>Description:</strong> {book.description}<br />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {showBooks && (
         <div className="pagination">
           {paginationButtons}
         </div>
       )}
+      <div className="buttons">
+        <Link href="/" className="button-link">
+          Back
+        </Link>
+      </div>
     </div>
   );
 }

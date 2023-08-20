@@ -1,44 +1,72 @@
 "use client"
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-interface Author {
-  id: number;
-  firstName: string;
-  lastName: string;
-  language: string;
-  bookCount: number;
-}
+
 
 interface Book {
   id: number;
   title: string;
-  author: Author;
+  author: string;
   description: string;
+  price: number;
 }
+const username = 'admin';
+const password = 'admin123';
 
-const itemsPerPage = 50; // Number of books per page
-
-export default function Home() {
+export default function Admin() {
   const [books, setBooks] = useState<Book[]>([]);
   const [showBooks, setShowBooks] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
 
   const handleToggleBooks = () => {
     if (showBooks) {
       setShowBooks(false);
     } else {
-      axios.get<Book[]>('http://localhost:8080/admin/books')
+      axios.get<Book[]>('http://localhost:8080/books')
         .then(response => {
-          setBooks(response.data.reverse()); // Reverse the order of books
+          setBooks(response.data.reverse());
           setShowBooks(true);
-          setCurrentPage(1); // Reset to the first page when showing books
+          setCurrentPage(1);
         })
         .catch(error => {
           console.error('Error fetching books:', error);
         });
     }
   };
+
+  const handleAddBook = () => {
+    // Send a POST request to add a new book
+    axios.post('http://localhost:8080/admin/books', {
+      title: title,
+      author: author,
+      description: description,
+      price:price,
+    },{
+      auth:{username: username,
+        password : password,
+      }
+    })
+      .then(response => {
+        // Refresh the book list after adding a new book
+        handleToggleBooks();
+        // Clear the input fields
+        setTitle('');
+        setAuthor('');
+        setDescription('');
+      })
+      .catch(error => {
+        console.error('Error adding book:', error);
+      });
+  };
+  const itemsPerPage = 50; // Number of books per page
+
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, books.length);
@@ -56,29 +84,64 @@ export default function Home() {
   ));
 
   return (
-    <div className="user_bookstore_container">
-      <h1>Bookstore</h1>
-      <button onClick={handleToggleBooks} className='button-link'>
-        {showBooks ? 'Hide Books' : 'Show Books'}
-      </button>
-      <div className='List_of_books_table'>
-      {showBooks && (
-        <div className="bookList">
-          {currentBooks.map((book) => (
-            <div className="book" key={book.id}>
-              <strong>Title:</strong> {book.title}<br />
-              <strong>Author:</strong> {book.author.firstName} {book.author.lastName}<br />
-              <strong>Description:</strong> {book.description}<br />
+    <div className="admin_bookstore_container">
+        <div className="addBookSection">
+          <h2>Add Book</h2>
+          <div className="inputFields">
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Author"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <button onClick={handleAddBook} className='button-link'>Add</button>
+        </div>
+ 
+
+      <div className="user_bookstore_container">
+        <h1>Bookstore</h1>
+        <button onClick={handleToggleBooks} className='button-link'>
+          {showBooks ? 'Hide Books' : 'Show Books'}
+        </button>
+        <div className='List_of_books_table'>
+          {showBooks && (
+            <div className="bookList">
+              {currentBooks.map((book) => (
+                <div className="book" key={book.id}>
+                  <strong>Title:</strong> {book.title}<br />
+                  <strong>Author:</strong> {book.author}<br />
+                  <strong>Description:</strong> {book.description}<br />
+                  <strong>Price:</strong>{book.price}<br />
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
+        {showBooks && (
+          <div className="pagination">
+            {paginationButtons}
+          </div>
+        )}
       </div>
-      {showBooks && (
-        <div className="pagination">
-          {paginationButtons}
-        </div>
-      )}
     </div>
   );
 }

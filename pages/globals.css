@@ -1,15 +1,84 @@
-.container {
+/* styles.css */
+
+
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  text-align: center;
+  padding: 20px;
+
+}
+
+.admin_bookstore_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
   text-align: center;
   padding: 20px;
 }
 
-h1 {
+
+.admin_bookstore_container h1 {
   font-size: 24px;
 }
 
-.buttons {
+.addBookSection {
   margin-top: 20px;
-  
+  text-align: center;
+}
+
+.addBookSection h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.inputFields {
+  margin-bottom: 20px;
+}
+
+.inputFields input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.inputFields input[type="text"] {
+  font-size: 16px;
+}
+
+.inputFields input[type="password"] {
+  font-size: 16px;
+}
+
+.addButton {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #0056b3;
+}
+
+.user_bookstore_container {
+  text-align: center;
+  padding: 20px;
+}
+
+.user_bookstore_container h1 {
+  font-size: 24px;
 }
 
 .button-link {
@@ -28,29 +97,26 @@ h1 {
   background-color: #0056b3;
 }
 
-.user_bookstore_container {
-  text-align: center;
-  padding: 20px;
-}
-
 .List_of_books_table {
   margin-top: 20px;
 }
 
 .bookList {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column; 
+  align-items: center; 
 }
 
 .book {
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  max-width: 250px;
+  padding: 40px;
+  margin: 40px;
+  max-width: 500px;
   text-align: left;
+  width: 500%; 
 }
+
 
 .pagination {
   margin-top: 20px;
