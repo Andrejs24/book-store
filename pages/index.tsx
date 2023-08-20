@@ -6,11 +6,14 @@ const Home: React.FC = () => {
     <div className="container">
       <h1>Welcome to Book Store</h1>
       <div className="buttons">
-        <Link href="/user" className="button-link">
-        Unauthorized User Page
+        <Link href="/books" className="button-link">
+        Show books without registration
         </Link>
-        <Link href="/admin" className="button-link">
-          Admin Page
+        <Link href="/login" className="button-link">
+          Login 
+        </Link>
+        <Link href="/signup" className="button-link">
+          Sign up
         </Link>
       </div>
     </div>

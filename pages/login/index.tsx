@@ -1,25 +1,31 @@
-"use client"
-
-import React, { useState } from 'react';
-import axios from '@/node_modules/axios/index';
-
-
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter(); // Get the router object from Next.js
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      try {
-          const response = await axios.post('http://localhost:8080/login', { username, password });
-          console.log('Logged in:', response.data);
-      } catch (error: any) { 
-          console.error('Login failed:', error.response ? error.response.data : error.message);
-      }
-  };
-  
-  
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/auth/login', { username, password });
+            console.log('Logged in:', response.data);
+            // Redirect to the appropriate route based on the user's role
+            if (response.data.role === 'ADMIN') {
+                router.push('/admin');
+            } else if (response.data.role === 'USER') {
+                router.push('/user');
+            }
+        } catch (error: any) { // Explicitly specify the type as 'any'
+            if (error instanceof Error) {
+                console.error('Login failed:', error.message);
+            } else {
+                console.error('Login failed:', 'An unknown error occurred');
+            }
+        }
+    };
 
     return (
         <div>
@@ -42,4 +48,5 @@ function Login() {
         </div>
     );
 }
+
 export default Login;

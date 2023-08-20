@@ -28,7 +28,7 @@ export default function Home() {
     if (showBooks) {
       setShowBooks(false);
     } else {
-      axios.get<Book[]>('http://localhost:8080/user/books')
+      axios.get<Book[]>('http://localhost:8080/books')
         .then(response => {
           setBooks(response.data.reverse()); // Reverse the order of books
           setShowBooks(true);
